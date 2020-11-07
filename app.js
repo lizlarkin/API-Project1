@@ -1,3 +1,6 @@
+$(document).foundation();
+
+
 // Fetch Open Weather Map API
 var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=San Francisco&units=imperial&cnt=6&appid=(API KEY HERE)'
 
