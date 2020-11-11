@@ -1,0 +1,62 @@
+.full-container {
+	margin: auto;
+	width: 800px;
+	max-width: 80%;
+	background-color: rgb(149, 149, 149);
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 0 0 10px 2px;
+}
+
+.header {
+  margin: auto;
+  background-color: rgb(119, 119, 119);
+  border: 3px solid #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px 1px;
+	padding: 5px;
+}
+
+.button {
+	padding: 10px;
+	border-radius: 5px;
+	border: 2px solid rgb(0, 0, 0);
+}
+
+.search-container {
+	margin: auto;
+  background-color: rgb(97, 93, 93);
+  border: 3px solid #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px 1px;
+	padding: 5px;
+}
+
+.result-container {
+	margin: auto;
+	background-color: rgb(119, 119, 119);
+	border: 3px solid #fff;
+	border-radius: 5px;
+	box-shadow: 0 0 10px 1px;
+
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that floats next to each other */
+.column {
+  float: left;
+  width: 50%;
+  padding: 10px;
+  height: 500px;
+  border: 3px solid #fff; 
+}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}

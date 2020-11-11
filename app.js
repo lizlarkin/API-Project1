@@ -20,7 +20,7 @@ var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q='+ l
 function getApi(requestWeatherUrl) {
     fetch(requestWeatherUrl)
       .then(function (response) {
-          console.log(response.status);
+          
           return response.json();
           
       })
