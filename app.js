@@ -97,6 +97,50 @@ function getApi(requestWeatherUrl) {
               newCasesEl.append(newCasesP);
               newCasesP.textContent = ("New Cases per Day: " + newCases);    
 
+              // Recommendation Logic
+              var count = 0;
+              // Elements Check (e.g. is it raining or snowing?)
+              // Temperature Check
+              if (temp >= 80) {
+                count = count + 1
+              } else if (temp >= 65) {
+                count = count + 2
+              } else
+                count = count + 3
+              // Case Density Check
+              if (newCases >= 10) {
+                count = count + 3
+              } else if (newCases >= 1) {
+                count = count + 2
+              } else 
+                count = count + 1
+
+              // Infection Rate Check
+              if (infectionRate >= 1.1) {
+                count = count + 3
+              } else if (infectionRate >= 0.9) {
+                count = count + 2
+              } else {
+                count = count + 1
+              }
+              // New Cases Check
+              if (newCases >= 10) {
+                count = count + 3
+              } else if (newCases >= 1) {
+                count = count + 2
+              } else 
+                count = count + 1
+                
+              // Results
+              if (count > 6) {
+                console.log("Keep your pajamas on")
+              }  else if (count > 3) {
+                console.log("either way")
+              } else {
+                console.log("put on your pants")
+              }
+
+
             })
       }
 
