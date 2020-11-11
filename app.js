@@ -89,13 +89,13 @@ function getApi(requestWeatherUrl) {
               InfectionRateEl.append(infectionRateP);
               infectionRateP.textContent = ("Infections per Typical Case: " + infectionRate);    
 
-              // New Cases
-              var newCases = data.actuals.newCases;
+              // ICU Headroom
+              var newCases = data.metrics.icuHeadroomDetails.currentIcuCovid;
               console.log(newCases);
               newCasesP = document.createElement('p');
               var newCasesEl = document.querySelector("#covid-div");
               newCasesEl.append(newCasesP);
-              newCasesP.textContent = ("New Cases per Day: " + newCases);    
+              newCasesP.textContent = ("ICU Headroom Used: " + newCases + "%");    
 
               // Recommendation Logic
               var count = 0;
@@ -103,6 +103,7 @@ function getApi(requestWeatherUrl) {
               // Temperature Check
               if (temp >= 80) {
                 count = count + 1
+
               } else if (temp >= 65) {
                 count = count + 2
               } else
@@ -123,18 +124,18 @@ function getApi(requestWeatherUrl) {
               } else {
                 count = count + 1
               }
-              // New Cases Check
-              if (newCases >= 10) {
+              // ICU Headroom
+              if (newCases >= 60) {
                 count = count + 3
-              } else if (newCases >= 1) {
+              } else if (newCases >= 50) {
                 count = count + 2
               } else 
                 count = count + 1
                 
               // Results
-              if (count > 6) {
+              if (count >= 9) {
                 console.log("Keep your pajamas on")
-              }  else if (count > 3) {
+              }  else if (count > 6) {
                 console.log("either way")
               } else {
                 console.log("put on your pants")
