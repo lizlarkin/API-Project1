@@ -24,54 +24,54 @@
 <link rel="stylesheet" href="styles.css">  
 </head>
 <body>
-<div class="full-container">
-  <!-- Header and intro copy -->
-  <div class="row">
-      <div class="cell 12">
-      <div class="header">
-          <h1>Should You Go Outside?</h1>
-      </div>
-      </div>
-  </div>
-  <!-- Seach Bar -->
-      <form>
-          <div class="search-container">
-              <div class="grid-x grid-padding-x">
-                  <div class="medium-6 cell">
-                      <input type="text" class="inputValue" placeholder="Zipcode">
-                  </div>
-                  <div class="medium-6 cell">
-                      <a class="button" href="#">So Basic</a>
-                  </div>
-              </div>
-          </div>
-      </form>
-      <!-- Results -->
-  <div class="result-container">
-  <div class="row">
-      <!-- Weather Result -->
-      <div class="column">
-      <div class="weather-container" id = "weather-div">  
-          <h3>Weather</h3>
-      </div>
-      </div>
-      <!-- Covid Result -->
-      <div class="column">
-      <div class="covid-container" id = "covid-div">
-          <h3>COVID Data</h3>
-          <div class="covid-act-now-embed" data-fips-id="08031"></div>
-      </div>
-      </div>
-  </div>
-  </div>   
-          
-      
-</div>
-  
-      <!-- Recommendations if time allows -->
-  
-  <script src="https://covidactnow.org/scripts/embed.js"></script>
-  <script src="app.js"></script>
+    <div class="grid-container">
+        <!-- Header and intro copy -->
+        <div class="row">
+            <div class="cell 12">
+                <h1>Should You Go Outside?</h1>
+                <h3>A Data Driven Answer!!!</h3>
+            </div>
+        </div>
+        <!-- Seach Bar -->
+        <form>
+            <div class="grid-container">
+                <div class="grid-x grid-padding-x">
+                    <div class="medium-6 cell">
+                        <input id= "data-user-input" type="text" placeholder="Zipcode">
+                    </div>
+                    <div class="medium-6 cell">
+                        <a class="button" href="#">So Basic</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <!-- Results -->
+        <div class="row">
+            <div class="row">
+                <div class="columns small-3">
+                    <h3>Blank</h3>
+                </div>
+                <div class="columns small-3" id = "weather-div">
+                    <h3>Weather</h3>
+                    <p></p>
+                </div>
+                <div class="columns small-3" id = "covid-div">
+                    <h3>COVID Data</h3>
+                </div>
+                <div class="columns small-3">
+                    <h3>Blank</h3>
+                </div>
+            </div>
+        <!-- Recommendations if time allows -->
+        <div class="row">
+            <div class="cell 12">
+                <h3 id = "answer-div"> NO! </h3>
+            </div>
+        </div>
+
+        </div>
+    </div>
+    <script src="app.js"></script>
 
 </body>
 </html>
