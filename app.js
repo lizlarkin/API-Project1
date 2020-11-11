@@ -7,7 +7,7 @@ var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=Long
 function getApi(requestWeatherUrl) {
     fetch(requestWeatherUrl)
       .then(function (response) {
-          console.log(response.status);
+          
           return response.json();
           
       })
@@ -41,7 +41,7 @@ function getApi(requestWeatherUrl) {
 
         // Make this work to check for rain or snow 
         for (let i = 0; i < data.list[0].length; i++) {
-          console.log(data.list[0][i]);
+         
         }
 
 
@@ -49,17 +49,14 @@ function getApi(requestWeatherUrl) {
 
         // var iconEl = document.querySelector("#weather-div");
         // iconEl.append(iconImg);
-        
-
-
-
+      
 
     });
     // Should this be global or local? 
     var fips = "06075";
 
 // Fetch covid API
-var requestCovidUrl = 'https://api.covidactnow.org/v2/county/' + fips + '.json?apiKey=8e6e226fb8994445a2604105338264f5' 
+var requestCovidUrl = 'https://www.ncdc.noaa.gov/cdo-web/api/v2/SAhGjuIWSQLBOoUCmSIwdcrbJoOetNXd' 
 
 function getApi(requestCovidUrl) {
     fetch(requestCovidUrl)
