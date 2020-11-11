@@ -1,13 +1,21 @@
 // $(document).foundation();
 
+
 // On Button Click Event
 var button = document.querySelector('.button');
 
 button.addEventListener("click", function() {
 
+// Location Input
+var userInputEl = document.querySelector("#data-user-input")
+var locationInput = userInputEl.value
+console.log(locationInput)
+
+
+
   // Handle Weather Information
   // Fetch Open Weather Map API
-var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q=San Francisco&units=imperial&appid=f47cf665982ed682ac53eda751512847'
+var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?q='+ locationInput + '&units=imperial&appid=f47cf665982ed682ac53eda751512847'
 
 function getApi(requestWeatherUrl) {
     fetch(requestWeatherUrl)
