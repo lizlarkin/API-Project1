@@ -21,12 +21,12 @@
 <!-- foundation-rtl.min.css: Compressed CSS with right-to-left reading direction -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation-rtl.min.css" integrity="sha256-F+9Ns8Z/1ZISonBbojH743hsmF3x3AlQdJEeD8DhQsE=" crossorigin="anonymous">
 
-<link rel="stylesheet" href="./Assets/style.css"/>  
+<link rel="stylesheet" href="styles.css">  
 </head>
 <body>
-    <div class="grid-container">
+    <div class="grid-container full-container">
         <!-- Header and intro copy -->
-        <div class="row">
+        <div class="row header">
             <div class="cell 12">
                 <h1>Should You Go Outside?</h1>
                 <h3>A Data Driven Answer!!!</h3>
@@ -34,7 +34,7 @@
         </div>
         <!-- Seach Bar -->
         <form>
-            <div class="grid-container">
+            <div class="grid-container search-container">
                 <div class="grid-x grid-padding-x">
                     <div class="medium-6 cell">
                         <input id= "data-user-input" type="text" placeholder="Zipcode">
@@ -46,24 +46,24 @@
             </div>
         </form>
         <!-- Results -->
-        <div class="row">
+        <div class="row results-container">
             <div class="row">
-                <div class="columns small-3">
+                <!-- <div class="columns small-3">
                     <h3>Blank</h3>
-                </div>
-                <div class="columns small-3" id = "weather-div">
+                </div> -->
+                <div class="columns column small-3" id = "weather-div">
                     <h3>Weather</h3>
                     <p></p>
                 </div>
-                <div class="columns small-3" id = "covid-div">
+                <div class="columns column small-3" id = "covid-div">
                     <h3>COVID Data</h3>
                 </div>
-                <div class="columns small-3">
+                <!-- <div class="columns small-3">
                     <h3>Blank</h3>
-                </div>
+                </div> -->
             </div>
         <!-- Recommendations if time allows -->
-        <div class="row">
+        <div class="row results-container">
             <div class="cell 12">
                 <h3 id = "answer-div"> NO! </h3>
             </div>
@@ -75,3 +75,4 @@
 
 </body>
 </html>
+
