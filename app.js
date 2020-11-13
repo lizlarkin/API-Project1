@@ -134,11 +134,11 @@ function getApi(requestWeatherUrl) {
                 
               // Results
               if (count >= 9) {
-                console.log("Keep your pajamas on")
+                document.getElementById("answer-div").innerHTML = "Keep your pajamas on";
               }  else if (count > 6) {
-                console.log("either way")
+                document.getElementById("answer-div").innerHTML = "either way";
               } else {
-                console.log("put on your pants")
+                document.getElementById("danswer-div").innerHTML = "put on your pants";
               }
 
 
