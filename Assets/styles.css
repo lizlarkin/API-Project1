@@ -57,9 +57,11 @@ body {
 }
 #weather-div {
   border-right: 2px solid whitesmoke;
+  font-weight: bold;
 }
 #covid-div {
   border-left: 2px solid whitesmoke;
+  font-weight: bold;
 }
 
 #recommend-div {
@@ -74,7 +76,6 @@ body {
 #data-recommendation-div {
   margin-top: -10px;
   font-weight: bold;
-  color: red;
 }
 
 /* Clear floats after the columns */
@@ -95,3 +96,4 @@ body {
 .low {
   color: green;
 }
+

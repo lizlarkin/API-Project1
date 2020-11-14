@@ -110,52 +110,82 @@ function getApi(requestCovidUrl) {
       infectionRateP.textContent = ("Infections per Typical Case: " + infectionRate);    
 
       // ICU Headroom
-      var newCases = COVIDdata.metrics.icuHeadroomDetails.currentIcuCovid;
-      console.log(newCases);
-      newCasesP = document.createElement('p');
-      var newCasesEl = document.querySelector("#data-covid-div");
-      newCasesEl.append(newCasesP);
-      newCasesP.textContent = ("ICU Headroom Used: " + newCases + "%");    
+      var icuHeadroom = COVIDdata.metrics.icuHeadroomDetails.currentIcuCovid;
+      console.log(icuHeadroom);
+      icuHeadroomP = document.createElement('p');
+      var icuHeadroomEl = document.querySelector("#data-covid-div");
+      icuHeadroomEl.append(icuHeadroomP);
+      icuHeadroomP.textContent = ("ICU Headroom Used: " + icuHeadroom + "%");    
 
       // Recommendation Logic
       var count = 0;
       // Elements Check (e.g. is it raining or snowing?)
+
       // Temperature Check
       if (temp >= 80) {
         count = count + 1
-
+        tempP.setAttribute("class", "low")
       } else if (temp >= 65) {
         count = count + 2
-      } else
+        tempP.setAttribute("class", "medium")
+      } else {
         count = count + 3
-      // Case Density Check
-      if (newCases >= 10) {
+        tempP.setAttribute("class", "high")
+      }
+
+      // Feels Like Check
+    if (feelsLike >= 80) {
+        count = count + 1
+        feelsLikeP.setAttribute("class", "low")
+      } else if (feelsLike >= 65) {
+        count = count + 2
+        feelsLikeP.setAttribute("class", "medium")
+      } else {
         count = count + 3
+        feelsLikeP.setAttribute("class", "high")
+      }
+
+        // Case Density Check
+      if (caseDensity >= 10) {
+        count = count + 3
+        caseDensityP.setAttribute("class", "high")
       } else if (newCases >= 1) {
         count = count + 2
-      } else 
+        caseDensityP.setAttribute("class", "medium")
+      } else {
         count = count + 1
+        caseDensityP.setAttribute("class", "low")
+      }
 
       // Infection Rate Check
       if (infectionRate >= 1.1) {
         count = count + 3
+        infectionRateP.setAttribute("class", "high")
       } else if (infectionRate >= 0.9) {
         count = count + 2
+        infectionRateP.setAttribute("class", "medium")
       } else {
         count = count + 1
+        infectionRateP.setAttribute("class", "low")
       }
+
       // ICU Headroom
-      if (newCases >= 60) {
+      if (icuHeadroom >= 60) {
         count = count + 3
-      } else if (newCases >= 50) {
+        icuHeadroomP.setAttribute("class", "high")
+      } else if (icuHeadroom >= 50) {
         count = count + 2
-      } else 
+        icuHeadroomP.setAttribute("class", "medium")
+      } else {
         count = count + 1
+        icuHeadroomP.setAttribute("class", "low")
+      }
         
       // Results
-      if (count >= 9) {
+      if (count >= 10) {
         document.getElementById("data-recommendation-div").innerHTML = "Stay on the Couch";
-      }  else if (count > 6) {
+        $("#data-weather-div").addClass("high");
+      }  else if (count > 5) {
         document.getElementById("data-recommendation-div").innerHTML = "Put pants on at least...";
       } else {
         document.getElementById("data-recommendation-div").innerHTML = "Get off the couch & out the door!";
