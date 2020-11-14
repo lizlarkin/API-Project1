@@ -150,7 +150,6 @@ weatherButton.addEventListener("click", function() {
     //             // console.log(fips);
     //           })        
     //       }
-       
     //     getApi(requestStreetsUrl);
         
     //   });
@@ -254,9 +253,6 @@ weatherButton.addEventListener("click", function() {
 //           }; // COVID ends here
 //           getApi(requestCovidUrl);
 //         })
-      
-        
- 
 
 // Call Functions
 
