@@ -182,13 +182,17 @@ function getApi(requestCovidUrl) {
       }
         
       // Results
+      var recommendationEl = document.querySelector("#data-recommendation-div");
+
       if (count >= 10) {
         document.getElementById("data-recommendation-div").innerHTML = "Stay on the Couch";
-        $("#data-weather-div").addClass("high");
+        recommendationEl.setAttribute("class", "high")
       }  else if (count > 5) {
         document.getElementById("data-recommendation-div").innerHTML = "Put pants on at least...";
+        recommendationEl.setAttribute("class", "medium")
       } else {
         document.getElementById("data-recommendation-div").innerHTML = "Get off the couch & out the door!";
+        recommendationEl.setAttribute("class", "low")
       }
 
 
