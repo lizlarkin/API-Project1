@@ -149,11 +149,11 @@ function getApi(requestCovidUrl) {
         
       // Results
       if (count >= 9) {
-        document.getElementById("answer-div").innerHTML = "Keep your pajamas on";
+        document.getElementById("answer-div").innerHTML = "Stay on the Couch";
       }  else if (count > 6) {
-        document.getElementById("answer-div").innerHTML = "either way";
+        document.getElementById("answer-div").innerHTML = "Put pants on at least...";
       } else {
-        document.getElementById("danswer-div").innerHTML = "put on your pants";
+        document.getElementById("danswer-div").innerHTML = "Get off the couch & out the door!";
       }
 
 
