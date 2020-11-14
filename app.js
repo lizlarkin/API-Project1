@@ -19,6 +19,7 @@ weatherButton.addEventListener("click", function() {
     })
     .then(function (data) {
       weatherData = data
+      console.log(weatherData)
       // Weather data from API for display
       // Actual Temperature
       var temp = Math.ceil(data.main.temp);
@@ -64,7 +65,7 @@ weatherButton.addEventListener("click", function() {
       caseDensityP.textContent = ("Cases per 100,000 People: " + caseDensity); 
 
       // Infection Rate
-      var infectionRate = (data.metrics.infectionRate).toFixed(2);
+      var infectionRate = (data.metrics.infectionRate).toFixed(2); 
       infectionRateP = document.createElement('p');
       var InfectionRateEl = document.querySelector("#covid-div");
       InfectionRateEl.append(infectionRateP);
