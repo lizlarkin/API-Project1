@@ -2,253 +2,257 @@
 
 
 // On Weather Button Click Event
-var weatherButton = document.querySelector('#weather-button');
+var weatherButton = document.querySelector('#button');
 
 weatherButton.addEventListener("click", function() {
+  
+  // Location Input
+  var userInputEl = document.querySelector("#data-user-input")
+  var locationInput = userInputEl.value
+  console.log(locationInput)
+  var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?zip=' + locationInput + '&units=imperial&appid=f47cf665982ed682ac53eda751512847'
+  var weatherData
+  
+  fetch(requestWeatherUrl)
+    .then(function (response) {
+        return response.json();
+    })
+    .then(function (data) {
+      weatherData = data
+      // Weather data from API for display
+      // Actual Temperature
+      var temp = Math.ceil(data.main.temp);
+      tempP = document.createElement('p');
+      var tempEl = document.querySelector("#weather-div")
+      tempEl.append(tempP);
+      tempP.textContent = ("Current Temperature: " + temp + "\u00B0F");
 
-// Location Input
-var userInputEl = document.querySelector("#data-user-input")
-var locationInput = userInputEl.value
-console.log(locationInput)
+      // Feels Like Temperature
+      var feelsLike = Math.ceil(data.main.feels_like);
+      feelsLikeP = document.createElement('p');
+      var feelsLikeEl = document.querySelector("#weather-div")
+      feelsLikeEl.append(feelsLikeP);
+      feelsLikeP.textContent = ("Feels Like: " + feelsLike + "\u00B0F");
 
-  // Handle Weather Information
-  // Fetch Open Weather Map API
-var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?zip=' + locationInput + '&units=imperial&appid=f47cf665982ed682ac53eda751512847'
+      // Weather Icon
+      var code = data.weather[0].icon;
+      console.log(code);
+      var iconUrl = "http://openweathermap.org/img/wn/" + code + "@2x.png";
+      var iconImg = document.createElement('img');
+      iconImg.setAttribute("src", iconUrl);
+      var IconEl = document.querySelector("#weather-div");
+      IconEl.append(iconImg);
+      // var iconEl = document.querySelector("#weather-div");
+      // iconEl.append(iconImg);
+      return fetch(`https://zip-to-state.herokuapp.com/check/${locationInput}`)
+    })
+    .then(stateRes => {
+      return stateRes.json()
+    })
+    .then(stateData => {
+      return fetch(`https://api.covidactnow.org/v2/state/${stateData.state}.json?apiKey=95047daf9abb488da8b19c68ad3fbdea&lat=${weatherData.coord.lat}&long=${weatherData.coord.lon}`)
+    })
+    .then(covidResult => {
+      return covidResult.json()
+    })
+    .then(covidData => {
+      var caseDensity = (data.metrics.caseDensity).toFixed(2);
+      console.log(caseDensity)
+      caseDensityP = document.createElement('p');
+      var caseDensityEl = document.querySelector("#covid-div");
+      caseDensityEl.append(caseDensityP);
+      caseDensityP.textContent = ("Cases per 100,000 People: " + caseDensity); 
 
-function getApi(requestWeatherUrl) {
-    fetch(requestWeatherUrl)
-      .then(function (response) {
-          return response.json();
-          
-      })
-      .then(function (data) {
-        console.log(data);
+      // Infection Rate
+      var infectionRate = (data.metrics.infectionRate).toFixed(2);
+      infectionRateP = document.createElement('p');
+      var InfectionRateEl = document.querySelector("#covid-div");
+      InfectionRateEl.append(infectionRateP);
+      infectionRateP.textContent = ("Infections per Typical Case: " + infectionRate);    
 
-        // Get weather data from API
+      // ICU Headroom
+      var newCases = data.metrics.icuHeadroomDetails.currentIcuCovid;
+      console.log(newCases);
+      newCasesP = document.createElement('p');
+      var newCasesEl = document.querySelector("#covid-div");
+      newCasesEl.append(newCasesP);
+      newCasesP.textContent = ("ICU Headroom Used: " + newCases + "%");    
 
-        // Actual Temperature
-        var temp = Math.ceil(data.main.temp);
-        tempP = document.createElement('p');
-        var tempEl = document.querySelector("#weather-div")
-        tempEl.append(tempP);
-        tempP.textContent = ("Current Temperature: " + temp + "\u00B0F");
+      // Recommendation Logic
+      var count = 0;
+      // Elements Check (e.g. is it raining or snowing?)
+      // Temperature Check
+      if (temp >= 80) {
+        count = count + 1
 
-        // Feels Like Temperature
-        var feelsLike = Math.ceil(data.main.feels_like);
-        feelsLikeP = document.createElement('p');
-        var feelsLikeEl = document.querySelector("#weather-div")
-        feelsLikeEl.append(feelsLikeP);
-        feelsLikeP.textContent = ("Feels Like: " + feelsLike + "\u00B0F");
+      } else if (temp >= 65) {
+        count = count + 2
+      } else
+        count = count + 3
+      // Case Density Check
+      if (newCases >= 10) {
+        count = count + 3
+      } else if (newCases >= 1) {
+        count = count + 2
+      } else 
+        count = count + 1
 
-        // Weather Icon
-        var code = data.weather[0].icon;
-        console.log(code);
-        var iconUrl = "http://openweathermap.org/img/wn/" + code + "@2x.png";
+      // Infection Rate Check
+      if (infectionRate >= 1.1) {
+        count = count + 3
+      } else if (infectionRate >= 0.9) {
+        count = count + 2
+      } else {
+        count = count + 1
+      }
+      // ICU Headroom
+      if (newCases >= 60) {
+        count = count + 3
+      } else if (newCases >= 50) {
+        count = count + 2
+      } else 
+        count = count + 1
         
-        var iconImg = document.createElement('img');
-        iconImg.setAttribute("src", iconUrl);
-        var IconEl = document.querySelector("#weather-div");
-        IconEl.append(iconImg);
+      // Results
+      if (count >= 9) {
+        document.getElementById("answer-div").innerHTML = "Stay on the Couch";
+      }  else if (count > 6) {
+        document.getElementById("answer-div").innerHTML = "Put pants on at least.";
+      } else {
+        document.getElementById("danswer-div").innerHTML = "Enjoy Your Day Outside!";
+      }
+      console.log(covidData)
+    })
+})
+      // Fetch Smarty Street API
+      // use Smarty Street to link between weather and COVID
+      // Smarty Streets will not return any data that user sees
 
-        // Make this work to check for rain or snow 
-        // for (let i = 0; i < data.list[0].length; i++) {
-        //   console.log(data.list[0][i]);
-        // }
+      // var requestStreetsUrl = 'https://us-zipcode.api.smartystreets.com/lookup?auth-id=158a3abb-a44f-b8bc-3cc4-c9fb8649a188&auth-token=QSyyyobo0YXOP9beyZCp&zipcode=' + locationInput +'' 
 
-        var iconEl = document.querySelector("#weather-div");
-        iconEl.append(iconImg);
+      //     function getApi(requestStreetsUrl) {
+      //       fetch(requestStreetsUrl)
+      //         .then(function (response) {
+      //             console.log(response);
+      //             return response.json();
+                  
+      //         })
+      //         .then(function (data) {
+      //           console.log(data);
 
-        // Fetch Smarty Street API
-        // use Smarty Street to link between weather and COVID
-        // Smarty Streets will not return any data that user sees
+                //COVID Data
+                // Case Density
 
-        var requestStreetsUrl = 'https://us-zipcode.api.smartystreets.com/lookup?auth-id=158a3abb-a44f-b8bc-3cc4-c9fb8649a188&auth-token=QSyyyobo0YXOP9beyZCp&zipcode=' + locationInput +'' 
-
-        function getApi(requestStreetsUrl) {
-          fetch(requestStreetsUrl)
-            .then(function (response) {
-                console.log(response);
-                return response.json();
-                
-            })
-            .then(function (data) {
-              console.log(data);
-
-              // Case Density
-              var caseDensity = (data.metrics.caseDensity).toFixed(2);
-              caseDensityP = document.createElement('p');
-              var caseDensityEl = document.querySelector("#covid-div");
-              caseDensityEl.append(caseDensityP);
-              caseDensityP.textContent = ("Cases per 100,000 People: " + caseDensity); 
-
-              // Infection Rate
-              var infectionRate = (data.metrics.infectionRate).toFixed(2);
-              infectionRateP = document.createElement('p');
-              var InfectionRateEl = document.querySelector("#covid-div");
-              InfectionRateEl.append(infectionRateP);
-              infectionRateP.textContent = ("Infections per Typical Case: " + infectionRate);    
-
-              // ICU Headroom
-              var newCases = data.metrics.icuHeadroomDetails.currentIcuCovid;
-              console.log(newCases);
-              newCasesP = document.createElement('p');
-              var newCasesEl = document.querySelector("#covid-div");
-              newCasesEl.append(newCasesP);
-              newCasesP.textContent = ("ICU Headroom Used: " + newCases + "%");    
-
-              // Recommendation Logic
-              var count = 0;
-              // Elements Check (e.g. is it raining or snowing?)
-              // Temperature Check
-              if (temp >= 80) {
-                count = count + 1
-
-              } else if (temp >= 65) {
-                count = count + 2
-              } else
-                count = count + 3
-              // Case Density Check
-              if (newCases >= 10) {
-                count = count + 3
-              } else if (newCases >= 1) {
-                count = count + 2
-              } else 
-                count = count + 1
-
-              // Infection Rate Check
-              if (infectionRate >= 1.1) {
-                count = count + 3
-              } else if (infectionRate >= 0.9) {
-                count = count + 2
-              } else {
-                count = count + 1
-              }
-              // ICU Headroom
-              if (newCases >= 60) {
-                count = count + 3
-              } else if (newCases >= 50) {
-                count = count + 2
-              } else 
-                count = count + 1
-                
-              // Results
-              if (count >= 9) {
-                document.getElementById("answer-div").innerHTML = "Stay on the Couch";
-              }  else if (count > 6) {
-                document.getElementById("answer-div").innerHTML = "either way";
-              } else {
-                document.getElementById("danswer-div").innerHTML = "put on your pants";
-              }
-              console.log(data[0]);
-              console.log(data[0].zipcodes);
-              // var fips = data[0].zipcodes[0].county_fips;
-              // console.log(fips);
-            })        
-        }
+    //             console.log(data[0]);
+    //             console.log(data[0].zipcodes);
+    //             // var fips = data[0].zipcodes[0].county_fips;
+    //             // console.log(fips);
+    //           })        
+    //       }
        
-        getApi(requestStreetsUrl);
+    //     getApi(requestStreetsUrl);
         
-      });
-    };
-    getApi(requestWeatherUrl);
+    //   });
+    // };
+    // getApi(requestWeatherUrl);
     
-    });
+    // });
 
 
     
-// On COVID Button Click Event
-var covidButton = document.querySelector('#covid-button');
+// // On COVID Button Click Event
+// var covidButton = document.querySelector('#covid-button');
 
-covidButton.addEventListener("click", function() {
+// covidButton.addEventListener("click", function() {
 
-// Location Input
+// // Location Input
     
-            // Fetch covid API
-            var fips = "06075"  // Should this be global or local? 
-            var requestCovidUrl = 'https://api.covidactnow.org/v2/county/' + fips + '.json?apiKey=8e6e226fb8994445a2604105338264f5' 
+//             // Fetch covid API
+//             var fips = "06075"  // Should this be global or local? 
+//             var requestCovidUrl = 'https://api.covidactnow.org/v2/county/' + fips + '.json?apiKey=8e6e226fb8994445a2604105338264f5' 
 
-            function getApi(requestCovidUrl) {
+//             function getApi(requestCovidUrl) {
               
-              fetch(requestCovidUrl)
-                .then(function (response) {
-                    console.log(response.status);
-                    return response.json();
+//               fetch(requestCovidUrl)
+//                 .then(function (response) {
+//                     console.log(response.status);
+//                     return response.json();
                     
-                })
-                .then(function (data) {
-                  console.log(data);
+//                 })
+//                 .then(function (data) {
+//                   console.log(data);
 
-                  // Case Density
-                  var caseDensity = (data.metrics.caseDensity).toFixed(2);
-                  caseDensityP = document.createElement('p');
-                  var caseDensityEl = document.querySelector("#covid-div");
-                  caseDensityEl.append(caseDensityP);
-                  caseDensityP.textContent = ("Cases per 100,000 People: " + caseDensity); 
+//                   // Case Density
+//                   var caseDensity = (data.metrics.caseDensity).toFixed(2);
+//                   caseDensityP = document.createElement('p');
+//                   var caseDensityEl = document.querySelector("#covid-div");
+//                   caseDensityEl.append(caseDensityP);
+//                   caseDensityP.textContent = ("Cases per 100,000 People: " + caseDensity); 
 
-                  // Infection Rate
-                  var infectionRate = (data.metrics.infectionRate).toFixed(2);
-                  infectionRateP = document.createElement('p');
-                  var InfectionRateEl = document.querySelector("#covid-div");
-                  InfectionRateEl.append(infectionRateP);
-                  infectionRateP.textContent = ("Infections per Typical Case: " + infectionRate);    
+//                   // Infection Rate
+//                   var infectionRate = (data.metrics.infectionRate).toFixed(2);
+//                   infectionRateP = document.createElement('p');
+//                   var InfectionRateEl = document.querySelector("#covid-div");
+//                   InfectionRateEl.append(infectionRateP);
+//                   infectionRateP.textContent = ("Infections per Typical Case: " + infectionRate);    
 
-                  // ICU Headroom
-                  var newCases = data.metrics.icuHeadroomDetails.currentIcuCovid;
-                  console.log(newCases);
-                  newCasesP = document.createElement('p');
-                  var newCasesEl = document.querySelector("#covid-div");
-                  newCasesEl.append(newCasesP);
-                  newCasesP.textContent = ("ICU Headroom Used: " + newCases + "%");    
+//                   // ICU Headroom
+//                   var newCases = data.metrics.icuHeadroomDetails.currentIcuCovid;
+//                   console.log(newCases);
+//                   newCasesP = document.createElement('p');
+//                   var newCasesEl = document.querySelector("#covid-div");
+//                   newCasesEl.append(newCasesP);
+//                   newCasesP.textContent = ("ICU Headroom Used: " + newCases + "%");    
 
-                  // Recommendation Logic
-                  var count = 0;
-                  // Elements Check (e.g. is it raining or snowing?)
-                  // Temperature Check
-                  if (temp >= 80) {
-                    count = count + 1
+//                   // Recommendation Logic
+//                   var count = 0;
+//                   // Elements Check (e.g. is it raining or snowing?)
+//                   // Temperature Check
+//                   if (temp >= 80) {
+//                     count = count + 1
 
-                  } else if (temp >= 65) {
-                    count = count + 2
-                  } else
-                    count = count + 3
-                  // Case Density Check
-                  if (newCases >= 10) {
-                    count = count + 3
-                  } else if (newCases >= 1) {
-                    count = count + 2
-                  } else 
-                    count = count + 1
+//                   } else if (temp >= 65) {
+//                     count = count + 2
+//                   } else
+//                     count = count + 3
+//                   // Case Density Check
+//                   if (newCases >= 10) {
+//                     count = count + 3
+//                   } else if (newCases >= 1) {
+//                     count = count + 2
+//                   } else 
+//                     count = count + 1
 
-                  // Infection Rate Check
-                  if (infectionRate >= 1.1) {
-                    count = count + 3
-                  } else if (infectionRate >= 0.9) {
-                    count = count + 2
-                  } else {
-                    count = count + 1
-                  }
-                  // ICU Headroom
-                  if (newCases >= 60) {
-                    count = count + 3
-                  } else if (newCases >= 50) {
-                    count = count + 2
-                  } else 
-                    count = count + 1
+//                   // Infection Rate Check
+//                   if (infectionRate >= 1.1) {
+//                     count = count + 3
+//                   } else if (infectionRate >= 0.9) {
+//                     count = count + 2
+//                   } else {
+//                     count = count + 1
+//                   }
+//                   // ICU Headroom
+//                   if (newCases >= 60) {
+//                     count = count + 3
+//                   } else if (newCases >= 50) {
+//                     count = count + 2
+//                   } else 
+//                     count = count + 1
                     
-                  // Results
-                  if (count >= 9) {
-                    document.getElementById("answer-div").innerHTML = "Keep your pajamas on";
-                  }  else if (count > 6) {
-                    document.getElementById("answer-div").innerHTML = "either way";
-                  } else {
-                    document.getElementById("danswer-div").innerHTML = "put on your pants";
-                  }
+//                   // Results
+//                   if (count >= 9) {
+//                     document.getElementById("answer-div").innerHTML = "Keep your pajamas on";
+//                   }  else if (count > 6) {
+//                     document.getElementById("answer-div").innerHTML = "either way";
+//                   } else {
+//                     document.getElementById("danswer-div").innerHTML = "put on your pants";
+//                   }
 
 
-                })
-          }; // COVID ends here
-          getApi(requestCovidUrl);
-        })
+//                 })
+//           }; // COVID ends here
+//           getApi(requestCovidUrl);
+//         })
       
         
  
