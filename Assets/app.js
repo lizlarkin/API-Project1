@@ -149,7 +149,7 @@ function getApi(requestCovidUrl) {
       if (caseDensity >= 10) {
         count = count + 3
         caseDensityP.setAttribute("class", "high")
-      } else if (newCases >= 1) {
+      } else if (caseDensity >= 1) {
         count = count + 2
         caseDensityP.setAttribute("class", "medium")
       } else {

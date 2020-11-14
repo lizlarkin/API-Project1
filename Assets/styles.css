@@ -1,11 +1,23 @@
 body {
-  background-image: url(./Assets/weather.png);
+  margin-top: 50px;
+  background-image: url(https://awsinsurance.com/wp-content/uploads/2015/11/background-clean.jpg);
 }
+
+h1 {
+  font-family: Unkempt;
+}
+
+p {
+  font-size: 20px;
+  padding-top: 25px;
+}
+
 .full-container {
   margin: auto;
   width: 800px;
   max-width: 80%;
-  background-color: rgb(137, 203, 218);
+  /* background-color: rgb(137, 203, 218); */
+  background-image: url(https://www.publicdomainpictures.net/pictures/250000/velka/clean-blue-background-2.jpg);
   padding: 10px;
   border-radius: 5px;
   box-shadow: 0 0 10px 2px;
@@ -13,7 +25,8 @@ body {
 
 .header {
   margin: auto;
-  background-color: rgb(137, 203, 218);
+  /* background-color: rgb(137, 203, 218); */
+  background-image: url(https://www.publicdomainpictures.net/pictures/250000/velka/clean-blue-background-2.jpg);
   border-radius: 5px;
   padding: 5px;
   text-align: center;
@@ -28,11 +41,12 @@ body {
 
 .search-container {
   margin: auto;
-  background-color: rgb(158, 154, 154);
+  background-color: #a4b0be;
   border-radius: 5px;
   height: 75px;
   padding: 5px;
 }
+
 #data-user-input {
   margin: 12px 0px 0px 5px;
 }
@@ -55,10 +69,12 @@ body {
   height: 500px;
   text-align: center;
 }
+
 #weather-div {
   border-right: 2px solid whitesmoke;
   font-weight: bold;
 }
+
 #covid-div {
   border-left: 2px solid whitesmoke;
   font-weight: bold;
@@ -66,7 +82,7 @@ body {
 
 #recommend-div {
   margin: auto;
-  background-color: rgb(158, 154, 154);
+  background-color:#a4b0be;
   height: 75px;
   border-radius: 5px;
   padding: 15px;
@@ -88,12 +104,12 @@ body {
 /* Risk Colors */
 
 .high {
-  color: red;
+  color: #EA2027;
 }
 .medium {
-  color: orange;
+  color: #e67e22;
 }
 .low {
-  color: green;
+  color: #27ae60;
 }
 
