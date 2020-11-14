@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Should You Go Outside?></title>
+    <title>Couch or Covid?</title>
 
 <!-- Compressed CSS -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css" integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
@@ -28,8 +28,8 @@
         <!-- Header and intro copy -->
         <div class="row header">
             <div class="cell 12">
-                <h1>Should You Go Outside?</h1>
-                <h3>A Data Driven Answer!!!</h3>
+                <h1>Couch or Covid?</h1>
+                <h4>A Data Driven App for Navigating Lockdown with Covid.</h4>
             </div>
         </div>
         <!-- Seach Bar -->
@@ -40,7 +40,7 @@
                         <input id= "data-user-input" type="text" placeholder="Zipcode">
                     </div>
                     <div class="medium-6 cell">
-                        <a class="button" href="#">Delete me hopefully</a>
+                        <a class="button" id = "button">Search 🔍</a>
                     </div>
                 </div>
             </div>
@@ -48,25 +48,19 @@
         <!-- Results -->
         <div class="row results-container">
             <div class="row">
-                <!-- <div class="columns small-3">
-                    <h3>Blank</h3>
-                </div> -->
                 <div class="columns column small-3" id = "weather-div">
-                    <h3>Weather</h3>
-                    <p><a class="button" id = "weather-button" href="#">Get Weather</a></p>
+                    <h3>Weather 🌤</h3>
+                    <p></p>
                 </div>
                 <div class="columns column small-3" id = "covid-div">
-                    <h3>COVID Data</h3>
-                    <p><a class="button" id = "covid-button"href="#">Get COVID</a></p>
+                    <h3>COVID Data 🧫</h3>
+                    <p></p>
                 </div>
-                <!-- <div class="columns small-3">
-                    <h3>Blank</h3>
-                </div> -->
             </div>
         <!-- Recommendations if time allows -->
-        <div class="row results-container">
+        <div class="row results-container" id = "recommend-div">
             <div class="cell 12">
-                <h3 id = "answer-div"></h3>
+                <h3 id="answer-div"></h3>
             </div>
         </div>
 
