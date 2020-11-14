@@ -14,9 +14,7 @@ body {
 .header {
   margin: auto;
   background-color: rgb(137, 203, 218);
-  /* border: 3px solid #fff; */
   border-radius: 5px;
-  /* box-shadow: 0 0 10px 1px; */
   padding: 5px;
   text-align: center;
 }
@@ -31,10 +29,8 @@ body {
 .search-container {
   margin: auto;
   background-color: rgb(158, 154, 154);
-  /* border: 3px solid #fff; */
   border-radius: 5px;
   height: 75px;
-  /* box-shadow: 0 0 10px 1px; */
   padding: 5px;
 }
 #data-user-input {
@@ -44,9 +40,7 @@ body {
 .result-container {
   margin: auto;
   background-color: rgb(221, 219, 219);
-  /* border: 3px solid #fff; */
   border-radius: 5px;
-  /* box-shadow: 0 0 10px 1px; */
 }
 
 * {
@@ -60,7 +54,6 @@ body {
   padding: 10px;
   height: 500px;
   text-align: center;
-  /* border: 3px solid #fff; */
 }
 #weather-div {
   border-right: 2px solid whitesmoke;
@@ -74,9 +67,14 @@ body {
   background-color: rgb(158, 154, 154);
   height: 75px;
   border-radius: 5px;
-  /* box-shadow: 0 0 10px 1px; */
   padding: 15px;
   text-align: center;
+}
+
+#data-recommendation-div {
+  margin-top: -10px;
+  font-weight: bold;
+  color: red;
 }
 
 /* Clear floats after the columns */
