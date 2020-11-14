@@ -45,7 +45,7 @@ function getApi(requestWeatherUrl) {
         // Weather Icon
         var code = data.weather[0].icon;
         console.log(code);
-        var iconUrl = "http://openweathermap.org/img/wn/" + code + "@2x.png";
+        var iconUrl = "https://openweathermap.org/img/wn/" + code + "@2x.png";
         
         var iconImg = document.createElement('img');
         iconImg.setAttribute("src", iconUrl);
