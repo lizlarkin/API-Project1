@@ -13,11 +13,7 @@ console.log(locationInput)
 
   // Handle Weather Information
   // Fetch Open Weather Map API
-<<<<<<< HEAD
-var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/forecast?zip='+ locationInput + '&units=imperial&appid=f47cf665982ed682ac53eda751512847'
-=======
 var requestWeatherUrl = 'https://api.openweathermap.org/data/2.5/weather?zip=' + locationInput + '&units=imperial&appid=f47cf665982ed682ac53eda751512847'
->>>>>>> ba48adfd494c23bc4adde32a0672b3743da9ae3c
 
 function getApi(requestWeatherUrl) {
     fetch(requestWeatherUrl)
@@ -78,7 +74,6 @@ function getApi(requestWeatherUrl) {
             .then(function (data) {
               console.log(data);
 
-<<<<<<< HEAD
               // Case Density
               var caseDensity = (data.metrics.caseDensity).toFixed(2);
               caseDensityP = document.createElement('p');
@@ -144,7 +139,6 @@ function getApi(requestWeatherUrl) {
               } else {
                 document.getElementById("danswer-div").innerHTML = "put on your pants";
               }
-=======
               console.log(data[0]);
               console.log(data[0].zipcodes);
               // var fips = data[0].zipcodes[0].county_fips;
@@ -159,7 +153,6 @@ function getApi(requestWeatherUrl) {
     getApi(requestWeatherUrl);
     
     });
->>>>>>> ba48adfd494c23bc4adde32a0672b3743da9ae3c
 
 
     
